@@ -53,8 +53,35 @@ async function generateCard (interaction, pfp, displayName, username, levell, xp
     const profileImage = await loadImage(profilePicUrl);
     drawProfilePic(profileImage);
 
+    let statuses2 = {
+      online: "rgb(83, 180, 83)",
+      idle: "rgb(232, 163, 51)",
+      dnd: "rgb(232, 51, 51)",
+      offline: "rgb(171, 171, 171)"
+    }
+
     function drawProfilePic(image) {
       // Circular profile pic (scaled and repositioned)
+
+      let statuses = {
+        online: "rgb(83, 180, 83)",
+        idle: "rgb(232, 163, 51)",
+        dnd: "rgb(232, 51, 51)",
+        offline: "rgb(171, 171, 171)"
+      }
+
+      ctx.fillStyle = statuses[statuss];
+      ctx.beginPath();
+      ctx.arc(270, 315, 178, 0, Math.PI * 2); // Adjusted position
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = "rgb(42, 45, 52)";
+      ctx.beginPath();
+      ctx.arc(270, 315, 168, 0, Math.PI * 2); // Adjusted position
+      ctx.closePath();
+      ctx.fill();
+
       ctx.save();
       ctx.beginPath();
       ctx.arc(270, 315, 157.5, 0, Math.PI * 2); // Adjusted position and size (scaled)
@@ -64,12 +91,7 @@ async function generateCard (interaction, pfp, displayName, username, levell, xp
       ctx.restore();
 
       // Online Status (closer to the profile picture, scaled)
-      let statuses = {
-        online: "rgb(83, 180, 83)",
-        idle: "rgb(232, 163, 51)",
-        dnd: "rgb(232, 51, 51)",
-        offline: "rgb(171, 171, 171)"
-      }
+      
 
       ctx.fillStyle = "rgb(42, 45, 52)";
       ctx.beginPath();
@@ -83,17 +105,47 @@ async function generateCard (interaction, pfp, displayName, username, levell, xp
       ctx.closePath();
       ctx.fill();
 
+      if (statuss == "idle") {
+        ctx.fillStyle = "rgb(42, 45, 52)";
+        ctx.beginPath();
+        ctx.arc(372.5, 417.5, 30, 0, Math.PI * 2); // Adjusted position
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      if (statuss == "offline") {
+        ctx.fillStyle = "rgb(42, 45, 52)";
+        ctx.beginPath();
+        ctx.arc(382.5, 427.5, 24, 0, Math.PI * 2); // Adjusted position
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      if (statuss == "dnd") {
+        ctx.fillStyle = statuses[statuss];
+        ctx.beginPath();
+        ctx.arc(382.5, 427.5, 38, 0, Math.PI * 2); // Adjusted position
+        ctx.closePath();
+        ctx.fill();
+
+        roundRect(352, 421,60,20,10);
+        ctx.fillStyle = "rgb(42,45,52)";
+        ctx.fill();
+     
+        
+      }
+
       
     }
 
     // Display Name (scaled font size and position)
     ctx.fillStyle = "white";
-    ctx.font = "90px Arial"; // Increased font size
+    ctx.font = "90px Myriad Pro"; // Increased font size
     ctx.fillText(displayName, 540, 225); // Adjusted position (scaled)
 
     // Username (scaled font size and position)
     ctx.fillStyle = "rgb(164, 164, 164)";
-    ctx.font = "48px Arial"; // Increased font size
+    ctx.font = "48px Myriad Pro"; // Increased font size
     ctx.fillText(username, 540, 300); // Adjusted position (scaled)
 
     // Progress Bar (Outer)
@@ -111,22 +163,44 @@ async function generateCard (interaction, pfp, displayName, username, levell, xp
     ctx.roundRect(540, 360, progressBarWidth, 54, 27); // Adjusted width (scaled)
     ctx.fill();
 
+
+
+    function roundRect(x, y, width, height, radius) {
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+  }
+
+
+
+
+
     // Details (Level, XP, Rank)
     ctx.fillStyle = "rgb(170, 170, 170)";
-    ctx.font = "54px Arial"; // Increased font size
-    ctx.fillText("Level", 1400, 320); // Adjusted position (scaled)
+    ctx.font = "54px Myriad Pro"; // Increased font size
+    ctx.fillText("Level", 1340, 320); // Adjusted position (scaled)
     ctx.fillText("XP", 540, 480); // Adjusted position (scaled)
-    ctx.fillText("Rank", 1400, 480); // Adjusted position (scaled)
+
+ 
 
     ctx.fillStyle = "white";
-    ctx.font = "174px Arial"; // Increased font size
-    ctx.fillStyle = "rgb(255, 244, 122)";
-    ctx.fillText(String(level), 1540, 320); // Adjusted position (scaled)
-    ctx.font = "54px Arial"; 
+    ctx.font = "174px Myriad Pro"; // Increased font size
+    ctx.fillStyle = statuses2[statuss];
+    ctx.fillText(String(level), 1475, 320); // Adjusted position (scaled)
+    ctx.font = "54px Myriad Pro"; 
     ctx.fillStyle = "white";
     ctx.fillText(`${currentXP} / ${maxXP}`, 620, 480); // Adjusted position (scaled)
-    ctx.fillText(rank, 1560, 480); // Adjusted position (scaled)
-
+    ctx.font = "95px Myriad Pro"; 
+    //ctx.fillText(rank, 1740, 110); RIP MY BRO
+    
 
    
   }

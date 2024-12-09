@@ -1,9 +1,9 @@
 ---
-description: Download the library
 icon: folder-arrow-down
+description: Download the library
 ---
 
 # Download
 
-{% embed url="https://github.com/LibanAlasow/Livonscript/livonscript" %}
+{% embed url="https://github.com/LibanAlasow/Livonscript" %}
 

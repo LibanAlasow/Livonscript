@@ -8,6 +8,7 @@
 * [Interfaces](content/interfaces.md)
 * [Button](content/button.md)
 * [Select](content/select.md)
+* [RankCard](content/rankcard.md)
 
 ***
 
